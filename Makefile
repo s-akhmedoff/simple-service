@@ -1,16 +1,10 @@
 CURRENT_DIR=$(shell pwd)
-
-APP=$(shell basename ${CURRENT_DIR})
-
 APP_CMD_DIR=${CURRENT_DIR}/cmd
-
-IMG_NAME=${APP}
-REGISTRY=${REGISTRY}
 TAG=latest
-ENV_TAG=latest
-
-# Including
-include .build_info
+PROJECT_NAME=microservice
+APP=simple_service
+SERVICE_NAME=simple
+REGISTRY=sadakhmedoff/simple-repo
 
 build:
 	CGO_ENABLED=0 GOOS=linux go build -mod=mod -a -o ${CURRENT_DIR}/bin/${APP} ${APP_CMD_DIR}/main.go
@@ -28,8 +22,8 @@ imports:
 	goimports -w .
 
 build-image:
-	docker build --rm -t ${REGISTRY}/${PROJECT_NAME}/${APP}/${IMG_NAME}:${TAG} .
-	docker tag ${REGISTRY}/${PROJECT_NAME}/${APP}/${IMG_NAME}:${TAG} ${REGISTRY}/${PROJECT_NAME}/${APP}/${IMG_NAME}:${ENV_TAG}
+	docker build --rm -t ${REGISTRY}/${PROJECT_NAME}/${APP}/${SERVICE_NAME}:${TAG} .
+	docker tag ${REGISTRY}/${PROJECT_NAME}/${APP}/${SERVICE_NAME}:${TAG} ${REGISTRY}/${PROJECT_NAME}/${APP}/${SERVICE_NAME}:${TAG}:${TAG}
 
 push-image:
-	docker push ${REGISTRY}/${PROJECT_NAME}/${APP}/${IMG_NAME}:${TAG}
+	docker push ${REGISTRY}/${PROJECT_NAME}/${APP}/${SERVICE_NAME}:${TAG}

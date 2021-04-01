@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "products" (
     "type" 	       varchar,
     "uri" 	       varchar,
     "description"  varchar,
-    "is_active"    bool,
-    "created_at"   timestamp,
-    "updated_at"   timestamp
+    "is_active"    bool NOT NULL,
+    "created_at"   timestamp DEFAULT now(),
+    "updated_at"   timestamp DEFAULT now()
 );

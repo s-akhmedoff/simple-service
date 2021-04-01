@@ -1,6 +1,0 @@
-PROJECT_NAME=microservice
-APP=simple_service
-SERVICE_NAME=simple
-DATABASE=simple_db
-REGISTRY=sadakhmedoff/simple-repo
-CURRENT=$(pwd)

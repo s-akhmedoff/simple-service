@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Product struct {
-	ID          string
+	ID          uuid
 	SKI         string
 	Name        string
 	ProductType string

@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DATABASE=${POSTGRES_DATABASE}
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -31,22 +31,24 @@ services:
       - 15672:15672
 
   simple:
+    depends_on:
+      - postgres
+      - rabbitmq
     image: sadakhmedoff/simple-repo/microservice/simple-service/simple:latest
     environment:
       - LOG_LEVEL=${LOG_LEVEL}
-      - HTTP_PORT=:7072
+      - HTTP_PORT=:9090
       - SERVER_IP=${SERVER_IP}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DATABASE=dbo_productcatalog
-      - MINIO_ENDPOINT=${MINIO_ENDPOINT}
-      - MINIO_BUCKET_NAME=${MINIO_BUCKET_NAME}
-      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
-      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - POSTGRES_DATABASE=simple_db
+      - RMQ_URL=${RMQ_URL}
+      - RMQ_EXCHANGE_NAME=${RMQ_EXCHANGE_NAME}
+      - RMQ_ROUTING_KEY=${RMQ_ROUTING_KEY}
     ports:
-      - "7072:7072"
+      - "9090:9090"
 
 volumes:
   postgres_data:

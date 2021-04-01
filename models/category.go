@@ -9,3 +9,8 @@ type Category struct {
 	UpdatedAt *time.Time
 	UriName   string
 }
+
+type NewCategory struct {
+	Name    string
+	UriName string
+}
