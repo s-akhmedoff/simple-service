@@ -14,7 +14,7 @@ CMD make swag
 RUN export CGO_ENABLED=0 && \
     export GOOS=linux && \
     make build && \
-    mv ./bin/simple /
+    mv /go/src/microservice/simple/bin/simple_service /
 
 FROM alpine
 
