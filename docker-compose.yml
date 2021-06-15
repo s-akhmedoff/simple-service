@@ -36,11 +36,10 @@ services:
       - rabbitmq
     image: sadakhmedoff/simple-repo/microservice/simple-service/simple:latest
     environment:
-      - LOG_LEVEL=${LOG_LEVEL}
-      - HTTP_PORT=:9090
+      - HTTP_PORT=:7070
       - SERVER_IP=${SERVER_IP}
       - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_PORT=5432
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DATABASE=simple_db
@@ -48,7 +47,7 @@ services:
       - RMQ_EXCHANGE_NAME=${RMQ_EXCHANGE_NAME}
       - RMQ_ROUTING_KEY=${RMQ_ROUTING_KEY}
     ports:
-      - "9090:9090"
+      - "7070:7070"
 
 volumes:
   postgres_data:

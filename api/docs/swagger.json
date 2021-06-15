@@ -1,0 +1,106 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server",
+        "title": "Simple Service REST API",
+        "contact": {
+            "name": "s-akhmedoff",
+            "url": "https://github.com/s-akhmedoff",
+            "email": "sodikjon.akhmedoff@gmail.com"
+        },
+        "license": {
+            "name": "GNU GPLv3",
+            "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:7070",
+    "paths": {
+        "/config": {
+            "get": {
+                "description": "expose all configs for debugging",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Show config",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/views.R"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/config.Config"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        "headers": {
+                            "Environment": {
+                                "type": "string",
+                                "description": "dev"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "config.Config": {
+            "type": "object",
+            "properties": {
+                "environment": {
+                    "type": "string"
+                },
+                "httphost": {
+                    "type": "string"
+                },
+                "httpport": {
+                    "type": "string"
+                },
+                "logLevel": {
+                    "type": "string"
+                },
+                "postgresDatabase": {
+                    "type": "string"
+                },
+                "postgresHost": {
+                    "type": "string"
+                },
+                "postgresPassword": {
+                    "type": "string"
+                },
+                "postgresPort": {
+                    "type": "string"
+                },
+                "postgresUser": {
+                    "type": "string"
+                }
+            }
+        },
+        "views.R": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object"
+                },
+                "error_code": {
+                    "type": "integer"
+                },
+                "error_note": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

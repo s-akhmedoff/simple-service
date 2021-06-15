@@ -1,0 +1,67 @@
+definitions:
+  config.Config:
+    properties:
+      environment:
+        type: string
+      httphost:
+        type: string
+      httpport:
+        type: string
+      logLevel:
+        type: string
+      postgresDatabase:
+        type: string
+      postgresHost:
+        type: string
+      postgresPassword:
+        type: string
+      postgresPort:
+        type: string
+      postgresUser:
+        type: string
+    type: object
+  views.R:
+    properties:
+      data:
+        type: object
+      error_code:
+        type: integer
+      error_note:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:7070
+info:
+  contact:
+    email: sodikjon.akhmedoff@gmail.com
+    name: s-akhmedoff
+    url: https://github.com/s-akhmedoff
+  description: This is a sample server
+  license:
+    name: GNU GPLv3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  title: Simple Service REST API
+  version: "1.0"
+paths:
+  /config:
+    get:
+      description: expose all configs for debugging
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Environment:
+              description: dev
+              type: string
+          schema:
+            allOf:
+            - $ref: '#/definitions/views.R'
+            - properties:
+                data:
+                  $ref: '#/definitions/config.Config'
+              type: object
+      summary: Show config
+swagger: "2.0"

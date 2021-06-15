@@ -3,16 +3,13 @@ FROM golang:latest as builder
 RUN mkdir -p $GOPATH/src/microservice/simple
 WORKDIR $GOPATH/src/microservice/simple
 
-COPY go.mod .
-COPY go.sum .
-
-RUN go mod download
-
 COPY . ./
 
-#RUN go get github.com/swaggo/swag/cmd/swag
+RUN go mod tidy
 
-#CMD make swag-init
+RUN go get github.com/swaggo/swag/cmd/swag
+
+CMD make swag
 
 RUN export CGO_ENABLED=0 && \
     export GOOS=linux && \

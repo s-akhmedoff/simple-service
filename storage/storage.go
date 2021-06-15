@@ -1,8 +1,12 @@
 package storage
 
-import "simple-service/models"
+import (
+	"github.com/jmoiron/sqlx"
+	"simple-service/models"
+)
 
 type Storage interface {
+	Tx() (*sqlx.Tx, error)
 	Product() ProductRepository
 	Price() PriceRepository
 	Category() CategoryRepository

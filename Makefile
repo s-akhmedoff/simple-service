@@ -12,6 +12,9 @@ build:
 run:
 	go run cmd/main.go
 
+swag:
+	swag init -g rest/server.go -o api/docs
+
 lint:
 	golangci-lint run -E megacheck .
 

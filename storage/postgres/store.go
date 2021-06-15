@@ -1,15 +1,26 @@
 package postgres
 
-import "simple-service/storage"
+import (
+	"github.com/jmoiron/sqlx"
+	"github.com/sirupsen/logrus"
+	"simple-service/config"
+	"simple-service/storage"
+)
+
+const scope = "storage:postgresql_db"
 
 type Store struct {
-	//db
-	//log
-	//cfg
+	db        *sqlx.DB
+	log       *logrus.Entry
+	cfg       *config.Config
 	ProductR  *ProductRepo
 	PriceR    *PriceRepo
 	ShopR     *ShopRepo
 	CategoryR *CategoryRepo
+}
+
+func (s *Store) Tx() (*sqlx.Tx, error) {
+	return s.db.Beginx()
 }
 
 func (s *Store) Product() storage.ProductRepository {
@@ -44,8 +55,12 @@ func (s *Store) Category() storage.CategoryRepository {
 	return s.CategoryR
 }
 
-func NewStore() (s *Store) {
-	s = &Store{}
+func NewStore(cfg *config.Config, log *logrus.Logger, db *sqlx.DB) (s *Store) {
+	s = &Store{
+		db:  db,
+		log: log.WithFields(logrus.Fields{"scope": scope, "env": cfg.Environment}),
+		cfg: cfg,
+	}
 
-	return
+	return s
 }
