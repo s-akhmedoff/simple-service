@@ -18,10 +18,10 @@ RUN export CGO_ENABLED=0 && \
 
 FROM alpine
 
-COPY --from=builder simple .
+COPY --from=builder simple_service .
 
 RUN apk add --no-cache tzdata
 
 ENV TZ Asia/Tashkent
 
-ENTRYPOINT ["/simple"]
+ENTRYPOINT ["/simple_service"]
