@@ -58,9 +58,37 @@ var doc = `{
                             ]
                         },
                         "headers": {
-                            "Environment": {
+                            "environment": {
                                 "type": "string",
-                                "description": "dev"
+                                "description": "Current environment"
+                            },
+                            "go-os": {
+                                "type": "string",
+                                "description": "Go OS"
+                            },
+                            "go-version": {
+                                "type": "string",
+                                "description": "Version of Golang"
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/views.R"
+                        },
+                        "headers": {
+                            "environment": {
+                                "type": "string",
+                                "description": "Current environment"
+                            },
+                            "go-os": {
+                                "type": "string",
+                                "description": "Go OS"
+                            },
+                            "go-version": {
+                                "type": "string",
+                                "description": "Version of Golang"
                             }
                         }
                     }
@@ -79,9 +107,6 @@ var doc = `{
                     "type": "string"
                 },
                 "httpport": {
-                    "type": "string"
-                },
-                "logLevel": {
                     "type": "string"
                 },
                 "postgresDatabase": {
@@ -108,13 +133,16 @@ var doc = `{
                     "type": "object"
                 },
                 "error_code": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 0
                 },
                 "error_note": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Error Note"
                 },
                 "status": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Success | Failure"
                 }
             }
         }

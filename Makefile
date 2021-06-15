@@ -16,7 +16,7 @@ swag:
 	swag init -g rest/server.go -o api/docs
 
 lint:
-	golangci-lint run -E megacheck .
+	golangci-lint run -E megacheck ./...
 
 format:
 	gofmt -s -w .

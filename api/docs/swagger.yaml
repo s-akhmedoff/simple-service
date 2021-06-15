@@ -7,8 +7,6 @@ definitions:
         type: string
       httpport:
         type: string
-      logLevel:
-        type: string
       postgresDatabase:
         type: string
       postgresHost:
@@ -25,10 +23,13 @@ definitions:
       data:
         type: object
       error_code:
+        example: 0
         type: integer
       error_note:
+        example: Error Note
         type: string
       status:
+        example: Success | Failure
         type: string
     type: object
 host: localhost:7070
@@ -53,8 +54,14 @@ paths:
         "200":
           description: OK
           headers:
-            Environment:
-              description: dev
+            environment:
+              description: Current environment
+              type: string
+            go-os:
+              description: Go OS
+              type: string
+            go-version:
+              description: Version of Golang
               type: string
           schema:
             allOf:
@@ -63,5 +70,19 @@ paths:
                 data:
                   $ref: '#/definitions/config.Config'
               type: object
+        "405":
+          description: Method Not Allowed
+          headers:
+            environment:
+              description: Current environment
+              type: string
+            go-os:
+              description: Go OS
+              type: string
+            go-version:
+              description: Version of Golang
+              type: string
+          schema:
+            $ref: '#/definitions/views.R'
       summary: Show config
 swagger: "2.0"
