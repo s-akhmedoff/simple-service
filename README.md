@@ -8,6 +8,20 @@ simple test service
 
 ### Get tools
 
+- swag
+
 ```shell
-cd ~ && go get github.com/swaggo/swag/cmd/swag && go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest && go get golang.org/x/tools/cmd/goimports && cd -
+go get github.com/swaggo/swag/cmd/swag
+```
+
+- golangci-lint
+
+```shell
+go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+```
+
+- goimports
+
+```shell
+go get golang.org/x/tools/cmd/goimports
 ```
