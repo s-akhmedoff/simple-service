@@ -2,55 +2,76 @@ version: '3.8'
 
 services:
   postgres:
-    container_name: postgres_db
-    image: postgres:11-alpine
+    container_name: postgresql
+    image: postgres:alpine
     restart: always
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+    env_file:
+      - .env
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data/
     ports:
       - 5432:5432
+    networks:
+      - default
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - .env
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pgadmin_volume:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    networks:
+      - default
 
   rabbitmq:
-    container_name: rabbit_mq
+    container_name: rabbitmq
     image: rabbitmq:3-management-alpine
     restart: always
+    env_file:
+      - .env
     volumes:
-      - rabbit_etc:/etc/rabbitmq/
-      - rabbit_data:/var/lib/rabbitmq/
-      - rabbit_logs:/var/log/rabbitmq/
-    environment:
-      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE}
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - rabbitmq_volume:/var/lib/rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      - default
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - redis_volume:/var/lib/redis
+    ports:
+      - 6379:6379
+    networks:
+      - default
 
   simple:
     depends_on:
       - postgres
       - rabbitmq
     image: sadakhmedoff/simple-repo/microservice/simple-service/simple:latest
-    environment:
-      - HTTP_PORT=:7070
-      - SERVER_IP=${SERVER_IP}
-      - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DATABASE=simple_db
-      - RMQ_URL=${RMQ_URL}
-      - RMQ_EXCHANGE_NAME=${RMQ_EXCHANGE_NAME}
-      - RMQ_ROUTING_KEY=${RMQ_ROUTING_KEY}
+    restart: always
+    env_file:
+      - .env
     ports:
       - "7070:7070"
 
 volumes:
-  postgres_data:
-  rabbit_etc:
-  rabbit_data:
-  rabbit_logs:
+  prometheus_volume:
+  grafana_volume:
+  postgres_volume:
+  pgadmin_volume:
+  rabbitmq_volume:
+  redis_volume:
+
+networks:
+  default:
