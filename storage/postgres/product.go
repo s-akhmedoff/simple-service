@@ -1,6 +1,7 @@
 package postgres
 
 import (
+	"github.com/jmoiron/sqlx"
 	"simple-service/models"
 )
 
@@ -8,7 +9,7 @@ type ProductRepo struct {
 	s *Store
 }
 
-func (p ProductRepo) Create(product *models.NewProduct) error {
+func (p ProductRepo) Create(tx *sqlx.Tx, product *models.NewProduct) error {
 	panic("implement me")
 }
 
@@ -24,10 +25,10 @@ func (p ProductRepo) ReadByType(productType string) (*models.Product, error) {
 	panic("implement me")
 }
 
-func (p ProductRepo) Update(ID string, product *models.Product) error {
+func (p ProductRepo) Update(tx *sqlx.Tx, ID string, product *models.Product) error {
 	panic("implement me")
 }
 
-func (p ProductRepo) Delete(ID string) error {
+func (p ProductRepo) Delete(tx *sqlx.Tx, ID string) error {
 	panic("implement me")
 }
