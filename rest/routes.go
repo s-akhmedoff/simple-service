@@ -9,4 +9,6 @@ func (s *Server) endpoints() {
 	s.router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	s.router.GET("/config", s.config)
+
+	s.router.POST("/products", s.createProduct)
 }

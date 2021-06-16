@@ -15,7 +15,7 @@ type Storage interface {
 
 type ProductRepository interface {
 	Create(tx *sqlx.Tx, product *models.NewProduct) error
-	Read() (*[]models.Product, error)
+	Read() ([]*models.Product, error)
 	ReadBySKI(SKI string) (*models.Product, error)
 	ReadByType(productType string) (*models.Product, error)
 	Update(tx *sqlx.Tx, ID string, product *models.Product) error
