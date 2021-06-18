@@ -132,7 +132,7 @@ func (p ProductRepo) Update(tx *sqlx.Tx, ID string, product *models.Product) err
 
 	exec, err := tx.Exec(query,
 		product.ID,
-		product.SKI,
+		product.SKU,
 		product.Name,
 		product.ProductType,
 		product.URI,

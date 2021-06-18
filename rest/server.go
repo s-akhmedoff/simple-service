@@ -3,9 +3,11 @@ package rest
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+	"github.com/zsais/go-gin-prometheus"
 	"net/http"
 	"simple-service/config"
 	"simple-service/storage"
+	"strings"
 )
 
 const scope = "server:rest_api"
@@ -36,6 +38,8 @@ func NewAPIServer(cfg *config.Config, log *logrus.Logger, storage storage.Storag
 		router:  router,
 	}
 
+	s.metrics() // Bind prometheus metrics exporter
+
 	s.endpoints() // Binds all endpoints
 
 	return
@@ -44,4 +48,22 @@ func NewAPIServer(cfg *config.Config, log *logrus.Logger, storage storage.Storag
 // ServerHTTP ...
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	s.router.ServeHTTP(w, r)
+}
+
+func (s *Server) metrics() {
+	p := ginprometheus.NewPrometheus("gin")
+
+	p.Use(s.router)
+
+	p.ReqCntURLLabelMappingFn = func(c *gin.Context) string {
+		url := c.Request.URL.Path
+		for _, p := range c.Params {
+			if p.Key == "name" {
+				url = strings.Replace(url, p.Value, ":name", 1)
+				break
+			}
+		}
+		return url
+	}
+
 }

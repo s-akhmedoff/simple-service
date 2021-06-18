@@ -8,7 +8,7 @@ import (
 	"simple-service/views"
 )
 
-func (s *Server) handleSuccessResponse(c *gin.Context, data interface{}) {
+func (s *Server) respond(c *gin.Context, data interface{}) {
 	c.JSON(http.StatusOK, views.R{
 		Status:    "Success",
 		ErrorCode: 0,
@@ -17,7 +17,7 @@ func (s *Server) handleSuccessResponse(c *gin.Context, data interface{}) {
 	})
 }
 
-func (s *Server) handleErrorResponse(c *gin.Context, httpCode, errorCode int, err error) {
+func (s *Server) reportError(c *gin.Context, httpCode, errorCode int, err error) {
 	c.JSON(httpCode, views.R{
 		Status:    "Failure",
 		ErrorCode: errorCode,
@@ -44,10 +44,10 @@ func (s *Server) config(c *gin.Context) {
 	c.Header("go-os", runtime.GOOS)
 
 	if s.cfg.Environment == "dev" {
-		s.handleSuccessResponse(c, s.cfg)
+		s.respond(c, s.cfg)
 
 		return
 	}
 
-	s.handleErrorResponse(c, http.StatusMethodNotAllowed, -100, errors.New("deployed staging/production environment"))
+	s.reportError(c, http.StatusMethodNotAllowed, -100, errors.New("deployed staging/production environment"))
 }

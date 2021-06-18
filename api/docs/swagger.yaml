@@ -18,6 +18,28 @@ definitions:
       postgresUser:
         type: string
     type: object
+  rest.createProductParams:
+    properties:
+      description:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      product_type:
+        type: string
+      ski:
+        type: string
+      uri:
+        type: string
+    required:
+    - description
+    - is_active
+    - name
+    - product_type
+    - ski
+    - uri
+    type: object
   views.R:
     properties:
       data:
@@ -85,4 +107,166 @@ paths:
           schema:
             $ref: '#/definitions/views.R'
       summary: Show config
+  /products:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/views.R'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/views.R'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/views.R'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/views.R'
+      summary: Get all products
+    post:
+      consumes:
+      - application/json
+      description: create new product in storage
+      parameters:
+      - description: product params
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/rest.createProductParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/views.R'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/views.R'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/views.R'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/views.R'
+      summary: Create new product
+    put:
+      consumes:
+      - application/json
+      description: create new product in storage
+      parameters:
+      - description: product params
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/rest.createProductParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/views.R'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/views.R'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/views.R'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/views.R'
+      summary: Create new product
+  /products/{id}:
+    delete:
+      parameters:
+      - description: product's ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/views.R'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/views.R'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/views.R'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/views.R'
+      summary: Delete product
+  /products/{ski}:
+    get:
+      description: get product by its ski
+      parameters:
+      - description: product's ski
+        in: path
+        name: ski
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/views.R'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/views.R'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/views.R'
+      summary: Read Product By SKI
+  /products/{type}:
+    post:
+      description: get product by its type
+      parameters:
+      - description: product's type
+        in: path
+        name: type
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/views.R'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/views.R'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/views.R'
+      summary: Read product by type
 swagger: "2.0"

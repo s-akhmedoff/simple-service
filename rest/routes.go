@@ -11,4 +11,5 @@ func (s *Server) endpoints() {
 	s.router.GET("/config", s.config)
 
 	s.router.POST("/products", s.createProduct)
+	s.router.GET("/products", s.readProducts)
 }
