@@ -79,7 +79,7 @@ func (s *Server) createProduct(c *gin.Context) {
 		return
 	}
 
-	s.log.Debug(fmt.Sprintf("Product created, transcation was successfully commited"))
+	s.log.Debug("Product created, transaction was successfully committed")
 
 	products, err := s.storage.Product().Read()
 	if err != nil {
@@ -203,7 +203,7 @@ func (s *Server) readProductBySKI(c *gin.Context) {
 // @Failure 422 {object} views.R
 // @Failure 500 {object} views.R
 // @Router /products [put]
-func (s *Server) updateProduct(c *gin.Context) {}
+//func (s *Server) updateProduct(c *gin.Context) {}
 
 // deleteProduct godoc
 // @Summary Delete product
