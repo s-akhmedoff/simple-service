@@ -18,7 +18,7 @@ definitions:
       postgresUser:
         type: string
     type: object
-  rest.createProductParams:
+  rest.productParams:
     properties:
       description:
         type: string
@@ -139,7 +139,7 @@ paths:
         name: param
         required: true
         schema:
-          $ref: '#/definitions/rest.createProductParams'
+          $ref: '#/definitions/rest.productParams'
       produces:
       - application/json
       responses:
@@ -163,14 +163,18 @@ paths:
     put:
       consumes:
       - application/json
-      description: create new product in storage
       parameters:
+      - description: product's ID
+        in: path
+        name: id
+        required: true
+        type: string
       - description: product params
         in: body
         name: param
         required: true
         schema:
-          $ref: '#/definitions/rest.createProductParams'
+          $ref: '#/definitions/rest.productParams'
       produces:
       - application/json
       responses:
@@ -190,7 +194,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/views.R'
-      summary: Create new product
+      summary: Update existing product
   /products/{id}:
     delete:
       parameters:
@@ -219,6 +223,29 @@ paths:
           schema:
             $ref: '#/definitions/views.R'
       summary: Delete product
+    get:
+      parameters:
+      - description: product's id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/views.R'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/views.R'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/views.R'
+      summary: Read Product By ID
   /products/{ski}:
     get:
       description: get product by its ski

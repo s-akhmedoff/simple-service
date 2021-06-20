@@ -12,7 +12,9 @@ func (s *Server) endpoints() {
 
 	s.router.POST("/products", s.createProduct)
 	s.router.GET("/products", s.readProducts)
-	s.router.DELETE("/products/:id", s.deleteProduct)
 	s.router.GET("/products/:type", s.readProductByType)
 	s.router.GET("/products/:ski", s.readProductBySKI)
+	s.router.GET("/products/:id", s.readProductByID)
+	s.router.PUT("/products/:id", s.updateProduct)
+	s.router.DELETE("/products/:id", s.deleteProduct)
 }

@@ -107,6 +107,27 @@ func (p ProductRepo) ReadByType(productType string) (*models.Product, error) {
 	return product, nil
 }
 
+func (p ProductRepo) ReadByID(productID string) (*models.Product, error) {
+	if productID == "" {
+		p.s.log.Error(errEmptyArgument)
+
+		return nil, errEmptyArgument
+	}
+
+	product := new(models.Product)
+
+	query := `SELECT * FROM product WHERE id=?`
+
+	err := p.s.db.QueryRowx(query, productID).StructScan(product)
+	if err != nil {
+		p.s.log.Error(err)
+
+		return nil, err
+	}
+
+	return product, nil
+}
+
 func (p ProductRepo) Update(tx *sqlx.Tx, ID string, product *models.Product) error {
 	if product == nil {
 		p.s.log.Error(errNilPointerReference)

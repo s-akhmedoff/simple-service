@@ -129,22 +129,28 @@ var doc = `{
                 }
             },
             "put": {
-                "description": "create new product in storage",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Create new product",
+                "summary": "Update existing product",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "product's ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "description": "product params",
                         "name": "param",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/rest.createProductParams"
+                            "$ref": "#/definitions/rest.productParams"
                         }
                     }
                 ],
@@ -191,7 +197,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/rest.createProductParams"
+                            "$ref": "#/definitions/rest.productParams"
                         }
                     }
                 ],
@@ -224,6 +230,41 @@ var doc = `{
             }
         },
         "/products/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Read Product By ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "product's id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/views.R"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/views.R"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/views.R"
+                        }
+                    }
+                }
+            },
             "delete": {
                 "produces": [
                     "application/json"
@@ -373,7 +414,7 @@ var doc = `{
                 }
             }
         },
-        "rest.createProductParams": {
+        "rest.productParams": {
             "type": "object",
             "required": [
                 "description",

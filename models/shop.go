@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Shop struct {
-	ID           uuid
+	ID           UUID
 	Name         string
 	CreatedAT    *time.Time
 	UpdatedAt    *time.Time

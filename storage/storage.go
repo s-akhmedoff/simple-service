@@ -18,6 +18,7 @@ type ProductRepository interface {
 	Read() ([]*models.Product, error)
 	ReadBySKI(SKI string) (*models.Product, error)
 	ReadByType(productType string) (*models.Product, error)
+	ReadByID(productID string) (*models.Product, error)
 	Update(tx *sqlx.Tx, ID string, product *models.Product) error
 	Delete(tx *sqlx.Tx, ID string) error
 }

@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type uuid string
+type UUID string
 
 type workingHours struct {
 	OpenAt  *time.Time

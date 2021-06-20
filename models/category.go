@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Category struct {
-	ID        uuid
+	ID        UUID
 	Name      string
 	CreateAat *time.Time
 	UpdatedAt *time.Time

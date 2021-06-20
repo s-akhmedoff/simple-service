@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Product struct {
-	ID          uuid       `db:"id"`
+	ID          UUID       `db:"id"`
 	SKU         string     `db:"sku"`
 	Name        string     `db:"name"`
 	ProductType string     `db:"type"`
